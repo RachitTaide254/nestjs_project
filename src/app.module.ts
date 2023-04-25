@@ -4,10 +4,11 @@ import { UserModule } from './user/user.module';
 import { PowerUserModule } from './power_user/power_user.module';
 import { AdminModule } from './admin/admin.module';
 import { SupportDeskModule } from './support_desk/support_desk.module';
+import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
-  imports: [AuthModule, UserModule, PowerUserModule, AdminModule, SupportDeskModule],
+  imports: [ConfigModule.forRoot({}),AuthModule, UserModule, PowerUserModule, AdminModule, SupportDeskModule],
 })
 
 export class AppModule {}

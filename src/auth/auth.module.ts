@@ -13,11 +13,12 @@ import { JwtStrategy } from './strategy/jwt.strategy';
 import { SessionSerializer } from './session.serializer';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './strategy/session.strategy';
-
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     MongooseModule.forRoot(
-      'mongodb+srv://rachit:risertechub@cluster0.nzlu6.mongodb.net/bhumio?authSource=admin&replicaSet=atlas-v4v52g-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true',
+      process.env.DATABASE_URI,
     ),
     MongooseModule.forFeature([{ name: 'admin', schema: AdminSchema }]),
     MongooseModule.forFeature([
@@ -36,8 +37,8 @@ import { LocalStrategy } from './strategy/session.strategy';
       transport: {
         host: 'smtp.sendgrid.net',
         auth: {
-          user: 'apikey',
-          pass: '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',
+          user: process.env.SENDGRID_USER,
+          pass: process.env.SENDGRID_PASS,
         },
       },
     }),
